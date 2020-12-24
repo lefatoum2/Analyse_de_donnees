@@ -1,0 +1,50 @@
+# procédure pour récupérer le nom d'un film en fonction de la liste des acteurs
+DELIMITER |
+CREATE PROCEDURE films_actor_all (IN actor_studio VARCHAR(256))
+BEGIN
+SELECT title FROM film
+INNER JOIN actor_film ON film.show_id = actor_film.id_film
+INNER JOIN actor ON actor_film.id_actor = actor.id_actor WHERE actor_name = actor_studio;
+END |
+DELIMITER ;
+
+CALL films_actor_all()
+
+#procédure pour récupérer le nom d'un film en fonction du ou des producteurs
+DELIMITER |
+CREATE PROCEDURE films_director_all (IN actor_studio VARCHAR(256))
+BEGIN
+SELECT title FROM film
+INNER JOIN director_film ON film.show_id = director_film.id_film
+INNER JOIN director ON director_film.id_director = director.id_director WHERE director_name = actor_studio;
+END |
+DELIMITER ;
+
+CALL films_director_all()
+
+#procédure pour récupérer le nom d'un film en fonction de sa catégorie
+DELIMITER |
+CREATE PROCEDURE gived_listed_in (IN actor_studio VARCHAR(256))
+BEGIN
+SELECT title FROM film
+INNER JOIN dlisted_in_film ON film.show_id = listed_in_film.id_film
+INNER JOIN listed_in ON listed_in_film.id_liste = listed_in.id_liste WHERE liste_name = actor_studio;
+END |
+DELIMITER ;
+
+CALL gived_listed_in()
+
+#procédure pour récupérer le nom d'un film en fonction de son pays
+
+DELIMITER |
+CREATE PROCEDURE all_film_country (IN give_country VARCHAR(256))
+BEGIN
+SELECT title FROM film
+INNER JOIN country_film ON film.show_id = country_film.id_country
+INNER JOIN country ON country_film.id_country = country.id_country WHERE country_name = give_country;
+END |
+DELIMITER ;
+
+CALL all_film_country()
+
+
